@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         $users = User::orderBy('id', 'ASC')->paginate(5);
 
-        return view('admin.users.intex')->with('users', $users);
+        return view('admin.users.index')->with('users', $users);
     }
 
     /**
@@ -44,7 +44,7 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        dd('Guardado correctamente');
+        
     }
 
     /**
