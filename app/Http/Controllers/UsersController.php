@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+
 
 class UsersController extends Controller
 {
@@ -43,8 +43,9 @@ class UsersController extends Controller
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
         $user->save();
+        Flash("Se ha registrado " . $user->name . " de forma exitosa!!", 'succes');
 
-        
+        return redirect()->route('admin.users.index');
     }
 
     /**
