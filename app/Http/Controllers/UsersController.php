@@ -67,7 +67,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.edit')->with('user',$user);
+
     }
 
     /**
@@ -79,7 +81,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->type = $request->type;
+        $user->save();
+        Flash('El usuario ' . $user->name . ' ha sido editado con exito!');
+        return redirect()->route('admin.users.index');
+
     }
 
     /**
@@ -93,7 +102,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        Flash('El usuario ' . $user->name . ' ha sido borrado de forma exitosa!!!', 'danger');
+        Flash('El usuario ' . $user->name . ' ha sido borrado de forma exitosa!!!', 'error');
         return redirect()->route('admin.users.index');
 
     }
