@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Tag;
-
+use App\Article;
+use App\Image;
+use Illuminate\Support\Facades\Redirect;
 
 class ArticlesController extends Controller
 {
@@ -19,7 +21,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        return view('admin.articles.create');
+        return view('admin.articles.index');
     }
 
     /**
@@ -46,10 +48,28 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         //Manipulacio de imagenes
-        $file = $request->file('image');
-        $name = 'blogfacilito_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = public_path() . '/image/articles/';
-        $file->move($path, $name);
+        if($request->file('image'))
+            {
+              $file = $request->file('image');
+              $name = 'blogfacilito_' . time() . '.' . $file->getClientOriginalExtension();
+              $path = public_path() . '/image/articles/';
+              $file->move($path, $name);
+            }
+
+        $article = new Article($request->all());
+        $article->user_id = \Auth::user()->id;
+        $article->save();
+
+        $article->tags()->sync($request->tags);
+
+        $image = new Image();
+        $image->name = $name;
+        $image->article()->associate($article);
+        $image->save();
+
+        Flash('Se ha creado el articulo ' . $article->title . ' de forma satisfactoria!', 'succes');
+        return redirect()->route('admin.articles.index');
+
     }
 
     /**
