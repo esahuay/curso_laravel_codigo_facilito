@@ -16,7 +16,7 @@
 
          <div class="form-group">
          	{!! Form::label('content', 'Contenido') !!}
-         	{!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+         	{!! Form::textarea('content', null, ['class' => 'form-control textarea']) !!}
          </div>
 
          <div class="form-group">
@@ -49,6 +49,8 @@
     		search_contains: true,
     		no_results_text: 'No hay busqueda con este criterio.'
     	})
+
+    	$('.textarea').trumbowyg();
     </script>
 
 
