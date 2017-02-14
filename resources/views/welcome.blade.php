@@ -5,6 +5,6 @@ Inicio de mi pagina
 @endsection
 
 @section('content')
-       <h1>Hola esto es bootstrap</h1>
-       <a href="" class="btn btn-success">Sou un boton de bootstrap</a>
+       <h1>Inicio</h1>
+       <a href="{{ route('admin.users.index') }}" class="btn btn-success">Usuarios</a>
 @endsection
