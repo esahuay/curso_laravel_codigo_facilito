@@ -1,4 +1,6 @@
 <?php
+use App\User;
+use Faker\Generator;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,11 +13,11 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
-    return [
+$factory->define(User::class, function (Generator $faker) {
+    $array = [
         'name' => $faker->name,
         'email' => $faker->email,
-        'password' => str_random(10),
-        'remember_token' => str_random(10),
+        'password' => bcrypt('vaniusa')
     ];
+    return $array;
 });
