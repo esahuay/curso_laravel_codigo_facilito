@@ -12,6 +12,7 @@ use App\Article;
 use App\Image;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ArticleRequest;
+use Laracasts\Flash\Flash;
 
 class ArticlesController extends Controller
 {
@@ -73,7 +74,7 @@ class ArticlesController extends Controller
         $image->article()->associate($article);
         $image->save();
 
-        Flash('Se ha creado el articulo ' . $article->title . ' de forma satisfactoria!', 'succes');
+        Flash::success('Se ha creado el articulo '. $article->title . ' con exito !');
         return redirect()->route('admin.articles.index');
 
     }
@@ -125,7 +126,7 @@ class ArticlesController extends Controller
         $article->save();
 
         $article->tags()->sync($request->tags);
-        Flash('Se ha editado el articulo ' . $article->title . ' de forma exitosa!', 'succes');
+        Flash::warning('Se ha editado el articulo '. $article->title . ' de forma exitosa');
         return redirect()->route('admin.articles.index');
     }
 
@@ -140,7 +141,7 @@ class ArticlesController extends Controller
         $article = Article::find($id);
         $article->delete();
 
-        Flash('Se ha borrado el articulo ' . $article->title . ' de forma exitosa!', 'error');
+        Flash::error('Se a eliminado el articulo '. $article->title .' con exito');
         return redirect()->route('admin.articles.index');
     }
 }

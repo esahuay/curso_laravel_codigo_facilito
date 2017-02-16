@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Http\Requests\UserRequest;
+use Laracasts\Flash\Flash;
 
 
 class UsersController extends Controller
@@ -43,7 +44,7 @@ class UsersController extends Controller
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
         $user->save();
-        Flash("Se ha registrado " . $user->name . " de forma exitosa!!", 'succes');
+        Flash::success("Se ha registrado ". $user->name ." de manera exitosa !" );
 
         return redirect()->route('admin.users.index');
     }
@@ -87,7 +88,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->type = $request->type;
         $user->save();
-        Flash('El usuario ' . $user->name . ' ha sido editado con exito!');
+        Flash::warning('El usuario '. $user->name .' ha sido editado con exito');
         return redirect()->route('admin.users.index');
 
     }
@@ -103,7 +104,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        Flash('El usuario ' . $user->name . ' ha sido borrado de forma exitosa!!!', 'error');
+        Flash::error('El usuario '. $user->name ." ha sido borrado de forma exitosa");
         return redirect()->route('admin.users.index');
 
     }

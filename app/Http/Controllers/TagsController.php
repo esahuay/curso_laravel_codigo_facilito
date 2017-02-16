@@ -7,6 +7,7 @@ use App\Http\Requests\TagRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tag;
+use Laracasts\Flash\Flash;
 
 class TagsController extends Controller
 {
@@ -42,7 +43,7 @@ class TagsController extends Controller
          $tag = new Tag($request->all());
          $tag->save();
 
-         Flash('El tag  ' . $tag->name . ' ha sido creada con exito!', 'success');
+         Flash::success('El tag '. $tag->name .' ha sido registrado con exito !');
          return redirect()->route('admin.tags.index');
     }
 
@@ -83,7 +84,7 @@ class TagsController extends Controller
       //$user->fill($request->all());      hase lo mismo que los 3 de abajo  
         $tag->name = $request->name;        
         $tag->save();
-        Flash('El Tag ' . $tag->name . ' ha sido editado con exito!');
+        Flash::warning('El tag ' . $tag->name .' ha sido editado con exito');
         return redirect()->route('admin.tags.index');
     }
     
@@ -99,7 +100,7 @@ class TagsController extends Controller
         $tag = Tag::find($id);
         $tag->delete();
 
-        Flash('El Tag ' . $tag->name . ' ha sido borrado de forma exitosa!!!', 'danger');
+        Flash::error('El tag '. $tag->name . ' ha sido eliminado con exito');
         return redirect()->route('admin.tags.index');
     }
 }

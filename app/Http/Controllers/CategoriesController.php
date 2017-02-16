@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Category;
+use Laracasts\Flash\Flash;
 
 
 class CategoriesController extends Controller
@@ -43,7 +44,7 @@ class CategoriesController extends Controller
          $category = new Category($request->all());
          $category->save();
 
-         Flash('La categoria ' . $category->name . ' ha sido creada con exito!', 'success');
+         Flash::success('La categoria '. $category->name .' ha sido registrada con exito !');
          return redirect()->route('admin.categories.index');
     }
 
@@ -83,7 +84,7 @@ class CategoriesController extends Controller
       //$user->fill($request->all());      hase lo mismo que los 3 de abajo  
         $category->name = $request->name;        
         $category->save();
-        Flash('La categoria ' . $category->name . ' ha sido editado con exito!');
+        Flash::warning('La categoria '. $category->name. ' ha sido editada con exito');
         return redirect()->route('admin.categories.index');
     }
 
@@ -98,7 +99,7 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        Flash('La categoria ' . $category->name . ' ha sido borrado de forma exitosa!!!', 'danger');
+        Flash::error('La categoria '. $category->name .' ha sido eliminada con exito');
         return redirect()->route('admin.categories.index');
     }
 }

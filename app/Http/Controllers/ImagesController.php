@@ -17,7 +17,7 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
+        $images = Image::orderBy('id', 'ASC')->paginate(6);
         $images->each(function($images){
             $images->article;
         });
